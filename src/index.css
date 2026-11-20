@@ -1,6 +1,15 @@
-@import "tailwindcss";
+@font-face {
+  font-family: 'Warsh Quran';
+  src: url('./assets/fonts/warsh.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
+  --quran-font: 'Amiri Quran', Amiri, 'Traditional Arabic', serif;
+  --quran-line-height: 1.85;
+  --quran-letter-spacing: 0px;
   --bg: #F6F2FF;
   --card: #fff;
   --ink: #2A1F4D;
@@ -637,7 +646,9 @@ h2 {
 }
 
 .ar {
-  font-family: Amiri, serif;
+  font-family: var(--quran-font, 'Amiri Quran', Amiri, serif);
+  line-height: var(--quran-line-height, 1.85);
+  letter-spacing: var(--quran-letter-spacing, 0px);
   direction: rtl;
   unicode-bidi: plaintext;
 }
@@ -2863,3 +2874,715 @@ a.chip {
   margin-bottom: 10px;
   font-size: 11.5px;
 }
+
+/* ============================================================
+   ARABIC QURAN FONT SCRIPTS & VARIATIONS
+   ============================================================ */
+:root[data-quran-font="uthmani"],
+body[data-quran-font="uthmani"] {
+  --quran-font: 'Amiri Quran', Amiri, 'Traditional Arabic', serif;
+  --quran-line-height: 1.85;
+  --quran-letter-spacing: 0px;
+}
+
+:root[data-quran-font="indopak"],
+body[data-quran-font="indopak"] {
+  --quran-font: 'Scheherazade New', 'Amiri', serif;
+  --quran-line-height: 2.15;
+  --quran-letter-spacing: 0.5px;
+}
+
+:root[data-quran-font="warsh"],
+body[data-quran-font="warsh"] {
+  --quran-font: 'Warsh Quran', 'Amiri Quran', Amiri, serif;
+  --quran-line-height: 2.0;
+  --quran-letter-spacing: 0.2px;
+}
+
+:root[data-quran-font="naskh"],
+body[data-quran-font="naskh"] {
+  --quran-font: 'Noto Naskh Arabic', 'Amiri', sans-serif;
+  --quran-line-height: 1.9;
+  --quran-letter-spacing: 0px;
+}
+
+.font-uthmani {
+  font-family: 'Amiri Quran', Amiri, serif !important;
+  line-height: 1.85 !important;
+}
+
+.font-indopak {
+  font-family: 'Scheherazade New', 'Amiri', serif !important;
+  line-height: 2.15 !important;
+}
+
+.font-warsh {
+  font-family: 'Warsh Quran', 'Amiri Quran', serif !important;
+  line-height: 2.0 !important;
+}
+
+.font-naskh {
+  font-family: 'Noto Naskh Arabic', sans-serif !important;
+  line-height: 1.9 !important;
+}
+
+/* Font Switcher Dropdown / Popover */
+.quran-font-picker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.quran-font-pill {
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--mut);
+  font: 600 11.5px Inter, 'Hind Siliguri', sans-serif;
+  padding: 5px 10px;
+  border-radius: 99px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.quran-font-pill.act {
+  background: var(--soft);
+  color: var(--softI);
+  border-color: var(--softI);
+  font-weight: 700;
+}
+
+/* ============================================================
+   AYAH QUOTE CARD MODAL (FEATURE গ)
+   ============================================================ */
+.quote-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 6, 24, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.quote-modal-container {
+  background: var(--card);
+  color: var(--ink);
+  width: 100%;
+  max-width: 860px;
+  max-height: 94vh;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  box-shadow: 0 20px 60px rgba(26, 15, 51, 0.4);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.quote-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.quote-modal-title b {
+  display: block;
+  font-size: 16px;
+  color: var(--ink);
+}
+
+.quote-modal-title span {
+  font-size: 11.5px;
+  color: var(--mut);
+}
+
+.quote-modal-body {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 18px 20px;
+  gap: 20px;
+}
+
+@media (min-width: 720px) {
+  .quote-modal-body {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.quote-preview-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 380px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 18px;
+  padding: 16px;
+}
+
+:root[data-theme="dark"] .quote-preview-wrapper {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.quote-card-preview {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  border-radius: 20px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 2px solid;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+  transition: all 0.25s ease;
+  overflow: hidden;
+}
+
+.quote-card-preview.ratio-story {
+  aspect-ratio: 9 / 16;
+  max-width: 300px;
+}
+
+.quote-card-preview.ratio-square {
+  aspect-ratio: 1 / 1;
+  max-width: 340px;
+}
+
+.quote-preview-border {
+  position: absolute;
+  inset: 8px;
+  border: 1px solid;
+  border-radius: 14px;
+  pointer-events: none;
+}
+
+.quote-preview-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 99px;
+  border: 1px solid;
+  margin-bottom: 12px;
+  letter-spacing: 0.3px;
+}
+
+.quote-preview-ar {
+  line-height: 1.8;
+  margin: 6px 0;
+  max-height: 160px;
+  overflow-y: auto;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.quote-preview-divider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0;
+  width: 70%;
+}
+
+.quote-preview-divider span {
+  flex: 1;
+  height: 1px;
+}
+
+.quote-preview-divider i {
+  width: 6px;
+  height: 6px;
+  border-radius: 99px;
+}
+
+.quote-preview-bn {
+  font-weight: 500;
+  line-height: 1.5;
+  margin: 4px 0;
+  max-height: 110px;
+  overflow-y: auto;
+}
+
+.quote-preview-en {
+  font-style: italic;
+  line-height: 1.4;
+  margin: 4px 0;
+  max-height: 80px;
+  overflow-y: auto;
+}
+
+.quote-preview-footer {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+
+.quote-preview-brand {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.quote-preview-sub {
+  font-size: 9.5px;
+  letter-spacing: 0.2px;
+}
+
+.quote-controls-panel {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.quote-control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.quote-control-group label {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--mut);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.quote-btn-grid {
+  display: grid;
+  gap: 6px;
+}
+
+.quote-btn-grid.cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.quote-btn-grid.cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.quote-theme-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.quote-theme-btn {
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: 8px 6px;
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+  font-size: 11.5px;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.quote-theme-btn.act {
+  transform: scale(1.04);
+  box-shadow: 0 4px 12px rgba(124, 92, 230, 0.4);
+}
+
+.quote-toggle-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--bg);
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+}
+
+.quote-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  cursor: pointer;
+}
+
+.quote-checkbox-row input {
+  accent-color: var(--pri);
+  width: 16px;
+  height: 16px;
+}
+
+.quote-actions-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.quote-main-btn {
+  flex: 1;
+  min-width: 160px;
+  background: var(--pri);
+  color: var(--priI);
+  border: 0;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 13.5px;
+  padding: 12px 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(124, 92, 230, 0.3);
+  transition: opacity 0.15s ease;
+}
+
+.quote-main-btn:disabled {
+  opacity: 0.6;
+}
+
+.quote-sub-btn {
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ============================================================
+   UNIVERSAL QURAN SEARCH & TOPICAL MODAL (FEATURE ঘ)
+   ============================================================ */
+.search-modal-container {
+  background: var(--card);
+  color: var(--ink);
+  width: 100%;
+  max-width: 820px;
+  max-height: 92vh;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  box-shadow: 0 20px 60px rgba(26, 15, 51, 0.4);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.search-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.search-modal-title b {
+  display: block;
+  font-size: 16px;
+  color: var(--ink);
+}
+
+.search-modal-title span {
+  font-size: 11.5px;
+  color: var(--mut);
+}
+
+.search-input-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 14px 20px 8px;
+  padding: 10px 14px;
+  background: var(--bg);
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
+  transition: border-color 0.15s ease;
+}
+
+.search-input-box:focus-within {
+  border-color: var(--pri);
+  box-shadow: 0 0 0 3px rgba(124, 92, 230, 0.15);
+}
+
+.search-icon {
+  font-size: 16px;
+  opacity: 0.7;
+}
+
+.search-main-input {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  outline: none;
+  font: 500 14px Inter, 'Hind Siliguri', sans-serif;
+  color: var(--ink);
+}
+
+.search-clear-btn {
+  border: 0;
+  background: var(--soft);
+  color: var(--softI);
+  border-radius: 99px;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+}
+
+.search-topics-section {
+  padding: 6px 20px 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.search-topics-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 11.5px;
+  color: var(--mut);
+}
+
+.search-topic-chips-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+}
+
+.search-topic-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+  padding: 6px 12px;
+  border-radius: 99px;
+  font: 600 12px Inter, 'Hind Siliguri', sans-serif;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.search-topic-chip.act {
+  background: var(--pri);
+  color: var(--priI);
+  border-color: var(--pri);
+  box-shadow: 0 3px 10px rgba(124, 92, 230, 0.3);
+}
+
+.search-results-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.search-direct-ref-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px 16px;
+  background: var(--okb);
+  border: 1px solid var(--ok);
+  border-radius: 16px;
+}
+
+.direct-ref-info b {
+  display: block;
+  font-size: 13px;
+  color: var(--ok);
+}
+
+.direct-ref-info span {
+  font-size: 12px;
+  color: var(--ink);
+}
+
+.direct-ref-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.search-section-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.search-section-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--mut);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.search-surah-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+@media (min-width: 600px) {
+  .search-surah-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.search-surah-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  gap: 10px;
+}
+
+.search-surah-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-surah-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: var(--soft);
+  color: var(--softI);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.search-surah-meta b {
+  display: block;
+  font-size: 13.5px;
+  color: var(--ink);
+}
+
+.search-surah-meta span {
+  font-size: 11.5px;
+  color: var(--mut);
+}
+
+.search-surah-actions {
+  display: flex;
+  gap: 5px;
+}
+
+.search-ayahs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.search-ayah-card {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color 0.15s ease;
+}
+
+.search-ayah-card:hover {
+  border-color: var(--pri);
+}
+
+.search-ayah-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.search-ayah-badge {
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--soft);
+  color: var(--softI);
+  padding: 3px 10px;
+  border-radius: 99px;
+}
+
+.search-ayah-buttons {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.search-ayah-ar {
+  font-size: 21px;
+  color: var(--ink);
+  line-height: 1.85;
+  padding: 2px 0;
+}
+
+.search-ayah-bn {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.search-ayah-en {
+  font-size: 12px;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--mut);
+}
+
+.search-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
+  gap: 8px;
+}
+
+.search-empty-icon {
+  font-size: 40px;
+  margin-bottom: 6px;
+}
+
+.search-empty-state b {
+  font-size: 16px;
+  color: var(--ink);
+}
+
+.search-empty-state p {
+  font-size: 13px;
+  color: var(--mut);
+  max-width: 440px;
+  margin: 0;
+}
+

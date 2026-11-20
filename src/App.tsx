@@ -34,6 +34,8 @@ import { TajweedWord, parseAyahTajweed } from './utils/tajweedParser';
 import { PdfReader } from './components/PdfReader';
 import { TajweedInspectorSheet } from './components/TajweedInspectorSheet';
 import { TajweedGuideModal } from './components/TajweedGuideModal';
+import { AyahQuoteModal, ArabicFontChoice } from './components/AyahQuoteModal';
+import { QuranSearchModal } from './components/QuranSearchModal';
 import { useOnlineStatus } from './hooks/useOnlineStatus';
 import { usePWAInstall } from './hooks/usePWAInstall';
 import {
