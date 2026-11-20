@@ -112,7 +112,7 @@ interface HifzWordEntry {
 }
 
 const SPEED_OPTIONS = [0.75, 1, 1.25, 1.5];
-const SLEEP_OPTIONS = [0, 900, 1800, 3600, 10];
+const SLEEP_PRESET_MINUTES = [2, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
 const MEDIA_SPEEDS = [0.5, 0.75, 1, 1.25, 1.5, 2, 3];
 const MEDIA_FITS: Array<'contain' | 'cover' | 'fill'> = ['contain', 'cover', 'fill'];
 const MEDIA_FIT_LABELS = ['Fit', 'Crop', 'Stretch'];
@@ -748,8 +748,10 @@ export default function App() {
   const [pos, setPos] = useState(0);
   const [duration, setDuration] = useState(50);
   const [speedIdx, setSpeedIdx] = useState(1); // 1x
-  const [sleepIdx, setSleepIdx] = useState(0);
   const [sleepLeft, setSleepLeft] = useState(0);
+  const [sleepSheetOpen, setSleepSheetOpen] = useState(false);
+  const [customSleepHours, setCustomSleepHours] = useState('0');
+  const [customSleepMins, setCustomSleepMins] = useState('15');
   const [reciterIdx, setReciterIdx] = useState<number>(() => {
     try {
       const saved = Number(localStorage.getItem('zk_last_reciter'));
@@ -1210,15 +1212,18 @@ export default function App() {
           englishAudioRef.current?.pause();
           stopBanglaPlayback();
           setIsPlaying(false);
-          setSleepIdx(0);
-          toast('Sleep timer finished. Playback stopped.');
+          toast(
+            appLang === 'bn'
+              ? 'স্লিপ টাইমার শেষ হয়েছে। তিলাওয়াত বন্ধ করা হয়েছে।'
+              : 'Sleep timer finished. Playback stopped.'
+          );
           return 0;
         }
         return prev - 1;
       });
     }, 1000);
     return () => window.clearInterval(id);
-  }, [sleepLeft, stopBanglaPlayback, toast]);
+  }, [sleepLeft, stopBanglaPlayback, toast, appLang]);
 
   // Premium Audio Player Animation Loop
   useEffect(() => {
@@ -2967,22 +2972,23 @@ export default function App() {
             <button
               className="chip"
               id="sl"
-              onClick={() => {
-                const nextIdx = (sleepIdx + 1) % SLEEP_OPTIONS.length;
-                const val = SLEEP_OPTIONS[nextIdx];
-                setSleepIdx(nextIdx);
-                setSleepLeft(val);
-                toast(
-                  val
-                    ? val === 10
-                      ? 'Sleep timer: stops in 10 seconds'
-                      : `Playback stops in ${val / 60} minutes`
-                    : 'Sleep timer off'
-                );
-              }}
+              aria-pressed={sleepLeft > 0}
+              onClick={() => setSleepSheetOpen(true)}
             >
               <Icon d="M21 13a9 9 0 11-10-10 7 7 0 0010 10z" />
-              <span id="slt">{sleepLeft > 0 ? `Sleep ${fmtTime(sleepLeft)}` : 'Sleep: off'}</span>
+              <span id="slt">
+                {sleepLeft > 0
+                  ? `${appLang === 'bn' ? 'স্লিপ' : 'Sleep'} ${
+                      sleepLeft >= 3600
+                        ? `${Math.floor(sleepLeft / 3600)}:${String(
+                            Math.floor((sleepLeft % 3600) / 60)
+                          ).padStart(2, '0')}:${String(sleepLeft % 60).padStart(2, '0')}`
+                        : fmtTime(sleepLeft)
+                    }`
+                  : appLang === 'bn'
+                  ? 'স্লিপ: বন্ধ'
+                  : 'Sleep: off'}
+              </span>
             </button>
 
             <button
@@ -4555,7 +4561,8 @@ export default function App() {
         addPdfOpen ||
         surahSheetOpen ||
         settingsOpen ||
-        offlinePromptOpen) && (
+        offlinePromptOpen ||
+        sleepSheetOpen) && (
         <div
           id="sh"
           onClick={(e) => {
@@ -4564,10 +4571,200 @@ export default function App() {
               setAddPdfOpen(false);
               setSurahSheetOpen(false);
               setSettingsOpen(false);
+              setSleepSheetOpen(false);
               dismissOfflinePrompt();
             }
           }}
         >
+          {sleepSheetOpen && (
+            <div className="sheet">
+              <div className="top">
+                <h2 style={{ fontSize: 18 }}>
+                  {appLang === 'bn' ? 'স্লিপ টাইমার' : 'Sleep Timer'}
+                </h2>
+                <button className="chip" onClick={() => setSleepSheetOpen(false)}>
+                  {t.close}
+                </button>
+              </div>
+              <p className="mut sm">
+                {appLang === 'bn'
+                  ? '২ মিনিট থেকে ১ ঘণ্টা পর্যন্ত প্রিসেট বেছে নিন অথবা নিজের মতো সময় সেট করুন।'
+                  : 'Choose a preset from 2 min to 1 hour, or set your own custom duration.'}
+              </p>
+
+              {sleepLeft > 0 && (
+                <div
+                  className="card"
+                  style={{
+                    background: 'var(--soft)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: 10,
+                    marginBottom: 12,
+                  }}
+                >
+                  <div>
+                    <div className="mut" style={{ fontSize: 11.5 }}>
+                      {appLang === 'bn' ? 'সক্রিয় টাইমার' : 'Active countdown'}
+                    </div>
+                    <b style={{ fontSize: 20, color: 'var(--pri)' }}>
+                      {sleepLeft >= 3600
+                        ? `${Math.floor(sleepLeft / 3600)}:${String(
+                            Math.floor((sleepLeft % 3600) / 60)
+                          ).padStart(2, '0')}:${String(sleepLeft % 60).padStart(2, '0')}`
+                        : fmtTime(sleepLeft)}
+                    </b>
+                  </div>
+                  <div style={{ display: 'flex', gap: 6 }}>
+                    <button
+                      className="chip"
+                      onClick={() => {
+                        setSleepLeft((prev) => prev + 300);
+                        toast(
+                          appLang === 'bn' ? '+৫ মিনিট বাড়ানো হয়েছে' : '+5 minutes added'
+                        );
+                      }}
+                    >
+                      +5m
+                    </button>
+                    <button
+                      className="chip"
+                      onClick={() => {
+                        setSleepLeft(0);
+                        toast(
+                          appLang === 'bn'
+                            ? 'স্লিপ টাইমার বন্ধ করা হয়েছে'
+                            : 'Sleep timer turned off'
+                        );
+                      }}
+                    >
+                      {appLang === 'bn' ? 'বন্ধ করুন' : 'Turn Off'}
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
+                  gap: 8,
+                  marginBottom: 14,
+                }}
+              >
+                <button
+                  className="chip"
+                  aria-pressed={sleepLeft === 0}
+                  style={{ justifyContent: 'center', padding: '0 8px' }}
+                  onClick={() => {
+                    setSleepLeft(0);
+                    setSleepSheetOpen(false);
+                    toast(
+                      appLang === 'bn' ? 'স্লিপ টাইমার বন্ধ করা হয়েছে' : 'Sleep timer off'
+                    );
+                  }}
+                >
+                  {appLang === 'bn' ? 'বন্ধ' : 'Off'}
+                </button>
+                {SLEEP_PRESET_MINUTES.map((mins) => {
+                  const secs = mins * 60;
+                  const active = sleepLeft > 0 && Math.ceil(sleepLeft / 60) === mins;
+                  return (
+                    <button
+                      key={mins}
+                      className="chip"
+                      aria-pressed={active}
+                      style={{ justifyContent: 'center', padding: '0 8px' }}
+                      onClick={() => {
+                        setSleepLeft(secs);
+                        setSleepSheetOpen(false);
+                        toast(
+                          appLang === 'bn'
+                            ? `${
+                                mins === 60 ? '১ ঘণ্টা' : `${toBengaliDigits(mins)} মিনিট`
+                              } পর তিলাওয়াত বন্ধ হবে`
+                            : `Playback stops in ${mins === 60 ? '1 hour' : `${mins} minutes`}`
+                        );
+                      }}
+                    >
+                      {mins === 60
+                        ? appLang === 'bn'
+                          ? '১ ঘণ্টা'
+                          : '1 hr'
+                        : appLang === 'bn'
+                        ? `${toBengaliDigits(mins)} মি.`
+                        : `${mins}m`}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="card" style={{ marginBottom: 4 }}>
+                <b style={{ fontSize: 13.5, display: 'block', marginBottom: 8 }}>
+                  {appLang === 'bn' ? 'নিজের মতো সময় নির্ধারণ করুন' : 'Custom Time'}
+                </b>
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 1fr',
+                    gap: 8,
+                    marginBottom: 10,
+                  }}
+                >
+                  <label className="range-field">
+                    <span>{appLang === 'bn' ? 'ঘণ্টা (Hours)' : 'Hours'}</span>
+                    <input
+                      type="number"
+                      min={0}
+                      max={12}
+                      value={customSleepHours}
+                      onChange={(e) => setCustomSleepHours(e.target.value)}
+                    />
+                  </label>
+                  <label className="range-field">
+                    <span>{appLang === 'bn' ? 'মিনিট (Minutes)' : 'Minutes'}</span>
+                    <input
+                      type="number"
+                      min={0}
+                      max={300}
+                      value={customSleepMins}
+                      onChange={(e) => setCustomSleepMins(e.target.value)}
+                    />
+                  </label>
+                </div>
+                <button
+                  className="btn2 bq"
+                  style={{ width: '100%' }}
+                  onClick={() => {
+                    const h = Math.max(0, Math.min(12, parseInt(customSleepHours || '0', 10) || 0));
+                    const m = Math.max(0, Math.min(300, parseInt(customSleepMins || '0', 10) || 0));
+                    const totalMins = h * 60 + m;
+                    if (totalMins <= 0) {
+                      toast(
+                        appLang === 'bn'
+                          ? 'কমপক্ষে ১ মিনিট নির্ধারণ করুন'
+                          : 'Please enter at least 1 minute'
+                      );
+                      return;
+                    }
+                    setSleepLeft(totalMins * 60);
+                    setSleepSheetOpen(false);
+                    toast(
+                      appLang === 'bn'
+                        ? `${
+                            h > 0 ? `${toBengaliDigits(h)} ঘণ্টা ` : ''
+                          }${m > 0 ? `${toBengaliDigits(m)} মিনিট ` : ''}পর তিলাওয়াত বন্ধ হবে`
+                        : `Playback stops in ${h > 0 ? `${h}h ` : ''}${m > 0 ? `${m}m` : ''}`.trim()
+                    );
+                  }}
+                >
+                  {appLang === 'bn' ? 'কাস্টম টাইমার সেট করুন' : 'Set Custom Timer'}
+                </button>
+              </div>
+            </div>
+          )}
+
           {similarOpen && (
             <div className="sheet">
               <div className="top">
