@@ -57,6 +57,8 @@
 
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
 }
 
 html,
@@ -64,16 +66,66 @@ body,
 #root {
   height: 100%;
   margin: 0;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 body {
   background: var(--bg);
   color: var(--ink);
   font: 15px/1.5 Inter, 'Hind Siliguri', system-ui, sans-serif;
+  overflow: hidden;
+}
+
+/* UI elements: completely disable text copy / selection */
+button,
+[role="button"],
+.chip,
+.ib,
+.rcd,
+.card,
+.arch,
+.top,
+.hd,
+nav,
+nav button,
+.seg,
+.opt-row,
+.stat-box,
+.tb,
+.sheet,
+.btn2,
+.wave,
+.hud,
+.lk,
+.d,
+.num,
+.tic,
+.dots,
+.spbar {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+/* Allow text input editing */
+input,
+textarea,
+select {
+  -webkit-user-select: auto;
+  user-select: auto;
 }
 
 .app {
-  max-width: 430px;
+  width: 100%;
+  max-width: 100%;
   height: 100%;
   margin: 0 auto;
   display: flex;
@@ -81,6 +133,28 @@ body {
   position: relative;
   overflow: hidden;
   background: var(--bg);
+  transition: max-width 0.25s ease;
+}
+
+@media (min-width: 640px) {
+  .app {
+    max-width: 720px;
+    box-shadow: 0 0 50px rgba(124, 92, 230, 0.12);
+    border-left: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+  }
+}
+
+@media (min-width: 860px) {
+  .app {
+    max-width: 920px;
+  }
+}
+
+@media (min-width: 1100px) {
+  .app {
+    max-width: 1040px;
+  }
 }
 
 .app::before {
@@ -125,6 +199,18 @@ main {
   z-index: 1;
 }
 
+@media (min-width: 640px) {
+  main {
+    padding: 22px 28px 16px;
+  }
+}
+
+@media (min-width: 860px) {
+  main {
+    padding: 26px 36px 20px;
+  }
+}
+
 section[hidden],
 [hidden] {
   display: none !important;
@@ -138,6 +224,7 @@ nav {
   box-shadow: 0 4px 14px rgba(124, 92, 230, 0.1);
   position: relative;
   z-index: 5;
+  width: 100%;
 }
 
 :root[data-theme="light"] nav {
@@ -163,6 +250,32 @@ nav button {
   padding: 0 2px;
   cursor: pointer;
   transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+@media (min-width: 640px) {
+  nav button {
+    min-height: 58px;
+    font-size: 11.5px;
+    gap: 3px;
+    padding: 0 8px;
+  }
+  nav .th,
+  nav .stg {
+    width: 54px;
+  }
+}
+
+@media (min-width: 860px) {
+  nav button {
+    min-height: 62px;
+    font-size: 12.5px;
+    gap: 4px;
+    padding: 0 12px;
+  }
+  nav .th,
+  nav .stg {
+    width: 60px;
+  }
 }
 
 nav button[aria-current="page"] {
@@ -344,6 +457,16 @@ h2 {
   align-items: center;
   gap: 28px;
   margin-top: 10px;
+  width: 100%;
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 860px) {
+  .ctl {
+    max-width: 640px;
+  }
 }
 
 .arch {
@@ -361,6 +484,32 @@ h2 {
   box-shadow: 0 18px 40px rgba(124, 92, 230, 0.3);
   cursor: pointer;
   transition: box-shadow 0.4s ease, transform 0.25s ease;
+  width: 100%;
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 640px) {
+  .arch {
+    height: 250px;
+    max-width: 580px;
+    border-radius: 125px 125px 32px 32px;
+  }
+  .arch .ar {
+    font-size: 72px;
+  }
+}
+
+@media (min-width: 860px) {
+  .arch {
+    height: 270px;
+    max-width: 640px;
+    border-radius: 135px 135px 36px 36px;
+  }
+  .arch .ar {
+    font-size: 80px;
+  }
 }
 
 .arch.playing {
@@ -512,6 +661,16 @@ h2 {
   cursor: pointer;
   touch-action: none;
   user-select: none;
+  width: 100%;
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 860px) {
+  .wave {
+    max-width: 640px;
+  }
 }
 
 .wave i {
@@ -534,6 +693,16 @@ h2 {
   justify-content: space-between;
   font-size: 12px;
   color: var(--mut);
+  width: 100%;
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 860px) {
+  .tm {
+    max-width: 640px;
+  }
 }
 
 .credit {
@@ -668,6 +837,27 @@ h2 {
   overflow: auto;
 }
 
+@media (min-width: 640px) {
+  #sh {
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .sheet {
+    max-width: 580px;
+    border-radius: 28px;
+    max-height: 88vh;
+    padding: 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  }
+}
+
+@media (min-width: 860px) {
+  .sheet {
+    max-width: 640px;
+  }
+}
+
 .d {
   background: var(--soft);
   color: var(--softI);
@@ -722,6 +912,16 @@ button:focus-visible {
   overflow: hidden;
   margin: 12px 0;
   box-shadow: 0 8px 24px rgba(124, 92, 230, 0.12);
+  width: 100%;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 860px) {
+  .vp {
+    max-width: 780px;
+  }
 }
 
 .stage {
@@ -840,6 +1040,41 @@ a.chip {
   margin-top: 4px;
 }
 
+@media (min-width: 600px) {
+  .rg {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+}
+
+@media (min-width: 860px) {
+  .rg {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+}
+
+#plist {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+@media (min-width: 600px) {
+  #plist {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (min-width: 900px) {
+  #plist {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+}
+
 .rcd {
   display: flex;
   align-items: center;
@@ -937,6 +1172,19 @@ a.chip {
   border-radius: 26px 26px 0 0;
   padding: 20px 20px 26px;
   box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.2);
+}
+
+@media (min-width: 640px) {
+  #tour:not(.full):not(.page) {
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  #tour:not(.full):not(.page) .tb {
+    max-width: 520px;
+    border-radius: 28px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  }
 }
 
 .tb h2 {
