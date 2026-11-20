@@ -1,0 +1,240 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>ZIKRIFY</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri&family=Hind+Siliguri:wght@500;600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F6F2FF;--card:#fff;--ink:#2A1F4D;--mut:#5F5489;--pri:#7C5CE6;--priI:#fff;--soft:#EDE6FF;--softI:#4B31B5;--okb:#E3F6EE;--ok:#12684A;--badb:#FDE8EA;--bad:#B3243A;--pend:#8E86AD;--line:#E4DBFA}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15112A;--card:#1F1A3A;--ink:#F1ECFF;--mut:#B7ACDC;--pri:#9B82F5;--priI:#1A1236;--soft:#2C2552;--softI:#D8CCFF;--okb:#12392D;--ok:#7EE2B8;--badb:#4A1F29;--bad:#FF9AA8;--pend:#A39BCB;--line:#34295F}}
+:root[data-theme="dark"]{--bg:#15112A;--card:#1F1A3A;--ink:#F1ECFF;--mut:#B7ACDC;--pri:#9B82F5;--priI:#1A1236;--soft:#2C2552;--softI:#D8CCFF;--okb:#12392D;--ok:#7EE2B8;--badb:#4A1F29;--bad:#FF9AA8;--pend:#A39BCB;--line:#34295F}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 Inter,'Hind Siliguri',system-ui,sans-serif}
+.app{max-width:430px;height:100%;margin:0 auto;display:flex;flex-direction:column;position:relative;overflow:hidden;background:var(--bg)}
+main{flex:1;overflow-y:auto;padding:16px 18px 8px}
+section[hidden],[hidden]{display:none!important}
+nav{display:flex;background:var(--card);border-top:1px solid var(--line)}
+nav button{flex:1;border:0;background:none;color:var(--mut);min-height:56px;font:600 11px Inter;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer}
+nav button[aria-current=page]{color:var(--pri)}
+.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.big .i{width:32px;height:32px}
+.hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.brand{letter-spacing:.18em;color:var(--pri);font-weight:700}
+.mut{color:var(--mut)}.sm{font-size:12px;margin:10px 0 6px}
+h2{margin:0;font-size:22px}
+.card{background:var(--card);border-radius:22px;box-shadow:0 8px 24px rgba(124,92,230,.12);padding:14px 16px;margin-bottom:12px}
+.chip{border:0;border-radius:22px;padding:0 14px;min-height:44px;font:600 13px Inter,'Hind Siliguri';background:var(--soft);color:var(--softI);display:inline-flex;align-items:center;gap:6px;cursor:pointer;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.chip[aria-pressed=true],.chip[aria-checked=true],.chip.on{background:var(--pri);color:var(--priI)}
+.rw{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.sc{flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px}
+.ib{width:48px;height:48px;border-radius:50%;border:0;background:var(--card);color:var(--softI);box-shadow:0 4px 14px rgba(124,92,230,.18);cursor:pointer;display:flex;align-items:center;justify-content:center}
+.play{width:72px;height:72px;background:var(--pri);color:var(--priI)}
+.ctl{display:flex;justify-content:center;align-items:center;gap:28px;margin-top:10px}
+.arch{height:220px;border-radius:110px 110px 28px 28px;background:linear-gradient(160deg,#9577EE,#5F3FC9);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;box-shadow:0 18px 40px rgba(124,92,230,.3)}
+.ar{font-family:Amiri,serif;direction:rtl}.arch .ar{font-size:60px;line-height:1.3}
+.tc{text-align:center;margin:14px 0 8px}
+.wave{display:flex;align-items:center;gap:3px;height:48px;cursor:pointer}
+.wave i{flex:1;border-radius:3px;background:var(--line)}.wave i.d{background:var(--pri)}
+.tm{display:flex;justify-content:space-between;font-size:12px;color:var(--mut)}
+.credit{text-align:center;font-size:11px;color:var(--mut);margin:18px 0 6px}
+.num{width:30px;height:30px;border-radius:50%;background:var(--soft);color:var(--softI);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center}
+.top{display:flex;justify-content:space-between;align-items:center}
+.ay{font-size:26px;line-height:1.7;margin:4px 0}
+.bn{font:500 14px 'Hind Siliguri'}.en{font-size:13px;color:var(--mut)}
+.act{border:2px solid var(--pri)}
+.w{font:inherit;font-family:Amiri,serif;font-size:30px;border:0;background:none;color:var(--pend);padding:0 8px;margin:2px;border-radius:12px;direction:rtl}
+.w.ok{background:var(--okb);color:var(--ok)}.w.bad{background:var(--badb);color:var(--bad);cursor:pointer}
+.blur .w:not(.ok):not(.bad){filter:blur(7px)}
+#hw{line-height:2.1;text-align:right}
+.st{display:flex;justify-content:space-around;text-align:center}.st b{font-size:22px;display:block}
+.lg{display:flex;gap:8px;flex-wrap:wrap;font-size:12px}.lg span{padding:2px 10px;border-radius:12px}
+#sh{position:absolute;inset:0;background:rgba(20,10,50,.55);display:flex;align-items:flex-end;z-index:5}
+.sheet{background:var(--card);width:100%;border-radius:24px 24px 0 0;padding:18px;max-height:85%;overflow:auto}
+.d{background:var(--soft);color:var(--softI);border-radius:8px;padding:0 6px}
+#ts{position:absolute;left:50%;bottom:76px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:20px;font-size:13px;z-index:6;width:max-content;max-width:90%;text-align:center}
+#fl{display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin:12px 0}
+video{width:100%;border-radius:16px;background:#000;max-height:260px}
+input[type=file]{display:none}
+button:focus-visible{outline:3px solid var(--pri);outline-offset:2px}
+.vp{background:var(--card);border-radius:20px;overflow:hidden;margin:12px 0;box-shadow:0 8px 24px rgba(124,92,230,.12)}
+.stage{position:relative;aspect-ratio:16/9;background:#000;touch-action:none;user-select:none;-webkit-user-select:none}
+.stage video,.stage canvas{position:absolute;inset:0;width:100%;height:100%}
+#viz{display:none}
+.hud{position:absolute;left:50%;top:10px;transform:translateX(-50%);background:rgba(0,0,0,.7);color:#fff;padding:4px 12px;border-radius:14px;font-size:13px;pointer-events:none;z-index:2}
+.lk{position:absolute;right:8px;bottom:8px;z-index:2;width:44px;height:44px;background:rgba(0,0,0,.55);color:#fff}
+.ctrl{padding:10px 12px}.ctrl input[type=range]{width:100%;accent-color:var(--pri)}
+.lkd .ctrl{pointer-events:none;opacity:.4}
+.vp:fullscreen{display:flex;flex-direction:column;justify-content:center;border-radius:0;margin:0;background:#000}.vp:fullscreen .stage{aspect-ratio:auto;flex:1}.vp:fullscreen .ctrl{background:var(--card)}
+.eq{display:flex;gap:12px;font-size:12px;color:var(--mut);margin-top:8px}.eq label{flex:1}
+.fm{display:flex;flex-direction:column;gap:10px}.fm input[type=text],.fm input[type=url],.fm select{width:100%;min-height:44px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:0 12px;font:inherit}
+a.chip{text-decoration:none}
+.chip{box-shadow:0 3px 0 rgba(124,92,230,.22),0 6px 12px rgba(124,92,230,.12)}.chip:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(124,92,230,.22)}
+.rg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px}
+.rcd{display:flex;align-items:center;gap:10px;text-align:left;border:0;border-radius:18px;background:var(--card);color:var(--ink);padding:10px 12px;min-height:58px;box-shadow:0 4px 0 var(--line),0 8px 18px rgba(124,92,230,.14);font:600 13px/1.3 Inter,'Hind Siliguri',sans-serif;cursor:pointer}
+.rcd .av{flex:none;width:36px;height:36px;border-radius:50%;background:var(--soft);color:var(--softI);display:flex;align-items:center;justify-content:center;font-weight:700}
+.rcd[aria-pressed=true]{background:var(--pri);color:var(--priI);box-shadow:0 4px 0 rgba(0,0,0,.2),0 10px 20px rgba(124,92,230,.35)}.rcd[aria-pressed=true] .av{background:rgba(255,255,255,.25);color:inherit}
+.rcd:active{transform:translateY(2px);box-shadow:0 2px 0 var(--line)}
+#tour{position:absolute;inset:0;z-index:7;display:flex;align-items:flex-end;background:rgba(20,10,50,.55)}
+#tour.full{align-items:stretch;background:linear-gradient(170deg,#7C5CE6,#4B2FB8)}
+#tour.page{align-items:stretch;background:var(--bg)}
+.tb{background:var(--card);width:100%;border-radius:26px 26px 0 0;padding:20px 20px 26px;box-shadow:0 -10px 30px rgba(0,0,0,.2)}
+.tb h2{margin:12px 0 4px}.tb p{margin:0 0 16px;color:var(--mut)}
+.dots{display:flex;gap:6px;margin-bottom:14px}.dots i{width:8px;height:8px;border-radius:4px;background:var(--line)}.dots i.on{width:22px;background:var(--pri)}
+.tic{width:56px;height:56px;border-radius:18px;background:var(--soft);color:var(--softI);display:flex;align-items:center;justify-content:center;flex:none}.tic .i{width:28px;height:28px}
+.wl{flex:1;display:flex;flex-direction:column;justify-content:center;gap:14px;padding:28px 22px;color:#fff;overflow:auto;width:100%}
+.btn2{border:0;border-radius:18px;min-height:52px;font:700 15px Inter,'Hind Siliguri',sans-serif;padding:0 18px;cursor:pointer;box-shadow:0 5px 0 rgba(0,0,0,.18)}.btn2:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(0,0,0,.18)}
+.bp{background:#fff;color:#4B31B5}.bs{background:rgba(255,255,255,.18);color:#fff}.bq{background:var(--pri);color:var(--priI)}.bg{background:var(--soft);color:var(--softI)}
+.row2{display:flex;gap:10px;align-items:center}.row2 .sp{flex:1}
+.pg{display:flex;flex-direction:column;width:100%;height:100%}.ovh{padding:18px 18px 8px}.ovb{flex:1;overflow:auto;padding:0 18px}.ovf{display:flex;gap:10px;padding:14px 18px;background:var(--card);border-top:1px solid var(--line)}
+</style></head><body><div class="app"><main>
+<section id="s0"><div class="hd"><b class="brand">ZIKRIFY</b><span class="mut">Now Playing</span><button class="chip" id="hlp">Guide</button></div>
+<div class="arch"><div class="ar">الفاتحة</div><div class="bn">সূরা আল-ফাতিহা · ৭ আয়াত</div></div>
+<div class="tc"><h2>Surah Al-Fatihah</h2><div class="mut" id="rn"></div></div>
+<div class="wave" id="wv" aria-label="Seek bar"></div><div class="tm"><span id="t1"></span><span id="t2"></span></div>
+<div class="ctl"><button class="ib" id="bk" aria-label="Back 10 seconds"><span class="ic" data-p="M11 17l-5-5 5-5M18 17l-5-5 5-5"></span></button><button class="ib play big" id="pp" aria-label="Play"></button><button class="ib" id="fw" aria-label="Forward 10 seconds"><span class="ic" data-p="M13 17l5-5-5-5M6 17l5-5-5-5"></span></button></div>
+<div class="rw"><button class="chip" id="sp">Speed 1x</button><button class="chip" id="sl"><span class="ic" data-p="M21 13a9 9 0 11-10-10 7 7 0 0010 10z"></span><span id="slt">Sleep: off</span></button><button class="chip" id="off" role="switch" aria-checked="false">Offline: off</button></div>
+<p class="mut sm">Reciter</p><div class="rg" id="rc"></div>
+<p class="mut sm">Listen in</p><div class="rw" id="md"></div>
+<p class="credit">Developed by Graphico Global · For MAHADUL FURQAN</p></section>
+<section id="s1" hidden><div class="hd"><b>Al-Fatihah</b><span class="mut">Juz 1 · Page 1</span></div><div id="ay"></div><p class="mut sm">Voices here are your device’s text-to-speech, not a reciter. Real reciter audio plays once audio files are connected.</p></section>
+<section id="s2" hidden><div class="hd"><b>Hifz Mode</b><span class="mut">Demo</span></div>
+<div class="card st"><div><b id="c1" style="color:var(--ok)">0</b><span class="mut sm">Correct</span></div><div><b id="c2" style="color:var(--bad)">0</b><span class="mut sm">Mistakes</span></div></div>
+<div class="card" id="hw"></div>
+<div class="lg"><span style="background:var(--okb);color:var(--ok)">Correct</span><span style="background:var(--badb);color:var(--bad)">Mistake</span><span style="background:var(--soft);color:var(--mut)">Pending</span></div>
+<p class="mut" id="hm" role="status">Press Start. Words turn green as they are recited; a mistake turns red.</p>
+<div class="rw"><button class="chip on" id="hs">Start</button><button class="chip" id="hr2">Reset</button><button class="chip" id="hd2" aria-pressed="false">Hide next words</button></div>
+<p class="mut sm">This demo moves on its own. Live speech recognition is the next build step.</p></section>
+<section id="s3" hidden><div class="hd"><b>Media</b><span class="mut">Music · Video</span></div>
+<div class="card"><p style="margin:0">Pick audio or video from your phone. A browser can only open the files you choose; automatic scanning of the whole phone needs the Android app.</p>
+<div class="rw"><label class="chip on" for="fi">Add files</label><label class="chip" for="fd">Add folder</label><label class="chip" for="sf">Subtitle (.srt/.vtt)</label></div>
+<input id="fi" type="file" accept="audio/*,video/*" multiple><input id="fd" type="file" webkitdirectory multiple><input id="sf" type="file" accept=".srt,.vtt"></div>
+<div class="vp" id="vp"><div class="stage" id="sg"><video id="vd" playsinline></video><canvas id="viz" width="320" height="180"></canvas><div class="hud" id="hud" hidden></div><button class="ib lk" id="lkb" aria-label="Lock controls" aria-pressed="false"><span class="ic" data-p="M6 11h12v9H6zM8 11V8a4 4 0 018 0v3"></span></button></div>
+<div class="ctrl"><div id="vt" style="font-weight:600;margin-bottom:4px">Nothing playing</div>
+<input type="range" id="seek" min="0" max="1000" value="0" aria-label="Seek"><div class="tm"><span id="m1">0:00</span><span id="m2">0:00</span></div>
+<div class="ctl" style="gap:12px"><button class="ib" id="mp" aria-label="Previous"><span class="ic" data-p="M6 5v14M18 5L8 12l10 7z"></span></button><button class="ib" id="mb" aria-label="Back 10 seconds"><span class="ic" data-p="M11 17l-5-5 5-5M18 17l-5-5 5-5"></span></button><button class="ib play big" id="mpl" aria-label="Play"></button><button class="ib" id="mf" aria-label="Forward 10 seconds"><span class="ic" data-p="M13 17l5-5-5-5M6 17l5-5-5-5"></span></button><button class="ib" id="mn" aria-label="Next"><span class="ic" data-p="M18 5v14M6 5l10 7-10 7z"></span></button></div>
+<div class="rw"><button class="chip" id="bShuf" aria-pressed="false">Shuffle</button><button class="chip" id="bRep">Repeat: off</button><button class="chip" id="bSpd">Speed 1x</button><button class="chip" id="bFit">Fit</button><button class="chip" id="bAB">A–B</button><button class="chip" id="bCC">Subtitle on/off</button><button class="chip" id="bSm">Sub −0.5s</button><button class="chip" id="bSp">Sub +0.5s</button><button class="chip" id="bPip">Pop-out</button><button class="chip" id="bFs">Fullscreen</button><button class="chip" id="bSlp">Sleep: off</button></div>
+<div class="eq"><label>Bass<input type="range" id="eb" min="-10" max="10" value="0"></label><label>Treble<input type="range" id="et" min="-10" max="10" value="0"></label></div>
+<p class="mut sm" style="margin:8px 0 0">Swipe the picture: sideways to seek, left side up/down for brightness, right side up/down for volume. Double-tap left or right for 10 seconds. Hold to play at 2x.</p></div></div>
+<div class="rw" id="qf" style="margin-top:0"></div><div id="fl"></div></section>
+<section id="s4" hidden><div class="hd"><b>Books &amp; PDFs</b><span class="mut">কিতাব ও পিডিএফ</span></div>
+<div class="rw sc" id="pfl" style="margin:0 0 10px"></div><button class="chip on" id="padd">+ Add PDF</button>
+<div id="plist" style="margin-top:12px"></div>
+<p class="mut sm">Drive links open in your browser or the Drive app and need internet, unless you made the file available offline in Drive. A PDF chosen from your phone is kept in this browser and opens offline.</p></section>
+</main>
+<nav><button><span class="ic" data-p="M4 14v-2a8 8 0 0116 0v2M4 14h3v6H4zM17 14h3v6h-3z"></span>Listen</button><button><span class="ic" data-p="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2zM4 19h15"></span>Read</button><button><span class="ic" data-p="M12 3a3 3 0 00-3 3v6a3 3 0 006 0V6a3 3 0 00-3-3zM6 11a6 6 0 0012 0M12 17v4"></span>Hifz</button><button><span class="ic" data-p="M3 6h7l2 2h9v11H3z"></span>Media</button><button><span class="ic" data-p="M4 4h12l4 4v12H4zM15 4v5h5M8 13h8M8 17h8"></span>Books</button></nav>
+<div id="sh" hidden></div><div id="tour" role="dialog" aria-modal="true" aria-label="ZIKRIFY guide" hidden></div><div id="ts" hidden role="status"></div></div>
+<script>
+const A=[['بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ','শুরু করছি আল্লাহর নামে, যিনি পরম করুণাময়, অতি দয়ালু।','In the name of Allah, the Most Gracious, the Most Merciful.'],['ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَـٰلَمِينَ','সমস্ত প্রশংসা আল্লাহর, যিনি সকল জগতের প্রতিপালক।','All praise is for Allah, Lord of all worlds.'],['ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ','পরম করুণাময়, অতি দয়ালু।','The Most Gracious, the Most Merciful.'],['مَـٰلِكِ يَوْمِ ٱلدِّينِ','যিনি প্রতিদান দিবসের মালিক।','Master of the Day of Judgment.'],['إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ','আমরা কেবল আপনারই ইবাদত করি এবং কেবল আপনারই কাছে সাহায্য চাই।','You alone we worship, and You alone we ask for help.'],['ٱهْدِنَا ٱلصِّرَٰطَ ٱلْمُسْتَقِيمَ','আমাদের সরল পথ দেখান।','Guide us to the straight path.'],['صِرَٰطَ ٱلَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ ٱلْمَغْضُوبِ عَلَيْهِمْ وَلَا ٱلضَّآلِّينَ','তাদের পথ, যাদের আপনি অনুগ্রহ করেছেন; তাদের নয়, যারা ক্রোধে পতিত এবং যারা পথভ্রষ্ট।','The path of those You have blessed, not of those who earned anger or went astray.']];
+const RC=['Mishary Alafasy','Abdul Basit','As-Sudais','Maher Al-Muaiqly','Saad Al-Ghamdi','Al-Minshawi'];
+const SIM=[['Al-An’am 6:45','وَ','ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَـٰلَمِينَ','Extra letter'],['Yunus 10:10','وَءَاخِرُ دَعْوَىٰهُمْ أَنِ','ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَـٰلَمِينَ','Different start'],['Az-Zumar 39:75','وَقِيلَ','ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَـٰلَمِينَ','Different start']];
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const ic=d=>'<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="'+d+'"/></svg>';
+$$('[data-p]').forEach(e=>e.innerHTML=ic(e.dataset.p));
+function toast(m){const t=$('#ts');t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>t.hidden=true,2400)}
+function go(i){$$('main>section').forEach((e,j)=>e.hidden=j!=i);$$('nav button').forEach((b,j)=>b.setAttribute('aria-current',j==i?'page':'false'));$('main').scrollTop=0}
+$$('nav button').forEach((b,j)=>b.onclick=()=>go(j));go(0);
+const fm=s=>Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');
+function say(t,l){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=l;u.rate=.85;speechSynthesis.speak(u)}catch(e){toast('Voice not available on this device')}}
+/* Listen */
+let pos=72,D=455,pl=false,si=1,sl=0,sli=0,ri=0,mi=0;const SP=[.75,1,1.25,1.5],SL=[[0],[900],[1800],[3600],[10]];
+$('#wv').innerHTML='<i></i>'.repeat(40);const bars=$$('#wv i');bars.forEach((b,i)=>b.style.height=(8+(i*37)%36)+'px');
+function draw(){const n=Math.round(pos/D*40);bars.forEach((b,i)=>b.className=i<n?'d':'');$('#t1').textContent=fm(pos);$('#t2').textContent='-'+fm(D-pos);$('#pp').innerHTML=ic(pl?'M8 5v14M16 5v14':'M8 5l11 7-11 7z');$('#pp').setAttribute('aria-label',pl?'Pause':'Play');$('#slt').textContent=sl>0?'Sleep '+fm(sl):'Sleep: off';$('#rn').textContent=RC[ri]}
+$('#pp').onclick=()=>{pl=!pl;draw()};
+$('#bk').onclick=()=>{pos=Math.max(0,pos-10);draw()};$('#fw').onclick=()=>{pos=Math.min(D-1,pos+10);draw()};
+$('#wv').onclick=e=>{const r=e.currentTarget.getBoundingClientRect();pos=Math.round((e.clientX-r.left)/r.width*D);draw()};
+$('#sp').onclick=()=>{si=(si+1)%4;$('#sp').textContent='Speed '+SP[si]+'x'};
+$('#sl').onclick=()=>{sli=(sli+1)%5;sl=SL[sli][0];draw();toast(sl?(sl==10?'Demo: stops in 10 seconds':'Playback stops in '+sl/60+' minutes'):'Sleep timer off')};
+$('#off').onclick=e=>{const b=e.currentTarget,o=b.getAttribute('aria-checked')!='true';b.setAttribute('aria-checked',o);b.textContent='Offline: '+(o?'saved':'off');toast(o?'Saved for offline listening (demo)':'Offline copy removed')};
+$('#rc').innerHTML=RC.map((r,i)=>'<button class="rcd" aria-pressed="'+(i==0)+'" data-r="'+i+'"><span class="av">'+r[0]+'</span><span>'+r+'</span></button>').join('');
+$('#rc').onclick=e=>{const b=e.target.closest('[data-r]');if(!b)return;ri=+b.dataset.r;$$('#rc button').forEach(x=>x.setAttribute('aria-pressed',x==b));draw()};
+$('#md').innerHTML=['Arabic','বাংলা','English'].map((r,i)=>'<button class="chip" aria-pressed="'+(i==0)+'" data-m="'+i+'">'+r+'</button>').join('');
+$('#md').onclick=e=>{const b=e.target.closest('[data-m]');if(!b)return;$$('#md button').forEach(x=>x.setAttribute('aria-pressed',x==b));toast('Listening language: '+b.textContent)};
+setInterval(()=>{if(pl){pos+=SP[si];if(pos>=D)pos=0;if(sl>0){sl--;if(sl==0){pl=false;sli=0;toast('Sleep timer finished. Playback stopped.')}}}draw()},1000);draw();
+/* Read */
+$('#ay').innerHTML=A.map((a,i)=>'<article class="card" id="a'+i+'"><div class="top"><span class="num">'+(i+1)+'</span>'+(i==1?'<button class="chip" id="simb">5 similar verses</button>':'')+'</div><div class="ar ay">'+a[0]+'</div><p class="bn" style="margin:2px 0">'+a[1]+'</p><p class="en" style="margin:2px 0 8px">'+a[2]+'</p><div class="rw" style="margin:0"><button class="chip" data-i="'+i+'" data-l="0">▶ عربي</button><button class="chip" data-i="'+i+'" data-l="1">▶ বাংলা</button><button class="chip" data-i="'+i+'" data-l="2">▶ EN</button></div></article>').join('');
+$('#ay').onclick=e=>{const b=e.target.closest('[data-l]');if(!b)return;const i=+b.dataset.i,l=+b.dataset.l;$$('#ay .card').forEach((c,j)=>c.classList.toggle('act',j==i));say(A[i][l],['ar-SA','bn-BD','en-US'][l])};
+$('#simb').onclick=()=>{const s=$('#sh');s.hidden=false;s.innerHTML='<div class="sheet"><div class="top"><h2 style="font-size:18px">Similar verses</h2><button class="chip" id="cl">Close</button></div><p class="mut sm">Al-Fatihah 1:2 · 5 found, 3 shown. Differences are highlighted.</p>'+SIM.map(x=>'<div class="card"><div class="top"><b>'+x[0]+'</b><span class="mut sm">'+x[3]+'</span></div><div class="ar ay" style="font-size:24px"><span class="d">'+x[1]+'</span> '+x[2]+'</div></div>').join('')+'<p class="mut sm">Sample data. Verify the final list with an experienced hafiz.</p></div>';$('#cl').onclick=()=>s.hidden=true;s.onclick=e=>{if(e.target==s)s.hidden=true}};
+/* Hifz */
+const W=A.slice(0,4).flatMap(a=>a[0].split(' '));let st=[],ix=0,tm=null,ms=0;
+function hr(){$('#hw').innerHTML=W.map((w,k)=>'<button class="w '+(st[k]||'')+'" data-k="'+k+'">'+w+'</button>').join('');$('#c1').textContent=st.filter(x=>x=='ok').length;$('#c2').textContent=ms}
+function stop(){clearInterval(tm);tm=null;$('#hs').textContent='Start'}
+function start(){if(tm)return;if(ix>=W.length){st=[];ix=0;ms=0}tm=setInterval(step,900);$('#hs').textContent='Pause';$('#hm').textContent='Listening… (demo)'}
+function step(){if(ix>=W.length){stop();$('#hm').textContent='Well done. Page complete.';return}if(ix==6&&!st[6]){st[6]='bad';ms++;stop();$('#hm').textContent='Mistake on the red word. Tap it to hear the correct recitation.';hr();return}st[ix]='ok';ix++;hr()}
+$('#hw').onclick=e=>{const b=e.target.closest('[data-k]');if(!b)return;const k=+b.dataset.k;if(st[k]=='bad'){say(W[k],'ar-SA');st[k]='ok';ix=k+1;hr();start()}};
+$('#hs').onclick=()=>tm?(stop(),$('#hm').textContent='Paused.'):start();
+$('#hr2').onclick=()=>{stop();st=[];ix=0;ms=0;hr();$('#hm').textContent='Press Start. Words turn green as they are recited; a mistake turns red.'};
+$('#hd2').onclick=e=>{const b=e.currentTarget,o=b.getAttribute('aria-pressed')!='true';b.setAttribute('aria-pressed',o);$('#hw').classList.toggle('blur',o)};hr();
+/* Media */
+const v=$('#vd'),SPD=[.5,.75,1,1.25,1.5,2,3],FIT=['contain','cover','fill'],FN=['Fit','Crop','Stretch'],RL=['Repeat: off','Repeat: one','Repeat: all'];
+let Q=[],qi=-1,qf='all',shuf=false,rep=0,lkd=false,spi=2,fti=0,abm=0,A_=0,B_=0,br=1,subT='',sd=0,ea_=false,an=null,bs=null,tr=null,eqv=[0,0],slT=null,sli2=0,lt=0,tt=null,held=false,g=null;
+const hu=m=>{const h=$('#hud');h.textContent=m;h.hidden=false;clearTimeout(hu.t);hu.t=setTimeout(()=>h.hidden=true,1000)};
+const fm2=s=>isFinite(s)?fm(s):'0:00';
+const skp=d=>{v.currentTime=Math.max(0,Math.min(v.duration||0,v.currentTime+d))};
+const key=q=>'zp:'+q.f.name+q.f.size;
+function kind(f){return f.type.startsWith('audio')||/\.(mp3|m4a|aac|wav|ogg|opus|flac)$/i.test(f.name)?'a':'v'}
+function add(fs){[...fs].forEach(f=>{if(/^(audio|video)\//.test(f.type)||/\.(mp3|m4a|aac|wav|ogg|opus|flac|mp4|mkv|webm|mov|3gp)$/i.test(f.name))Q.push({f,n:f.name.replace(/\.[^.]+$/,''),k:kind(f)})});rl();if(qi<0&&Q.length)ld(0,false)}
+$('#fi').onchange=e=>add(e.target.files);$('#fd').onchange=e=>add(e.target.files);
+function rl(){$('#qf').innerHTML=[['all','All'],['a','Music'],['v','Video']].map(x=>'<button class="chip" aria-pressed="'+(qf==x[0])+'" data-f="'+x[0]+'">'+x[1]+'</button>').join('');const L=$('#fl');L.innerHTML='';Q.forEach((q,i)=>{if(qf!='all'&&q.k!=qf)return;const b=document.createElement('button');b.className='chip';b.setAttribute('aria-pressed',i==qi);b.textContent=(q.k=='a'?'♪ ':'▶ ')+q.n;b.onclick=()=>ld(i,true);L.append(b)});if(!Q.length)L.innerHTML='<span class="mut">No files yet. Tap “Add files”.</span>'}
+$('#qf').onclick=e=>{const b=e.target.closest('[data-f]');if(b){qf=b.dataset.f;rl()}};
+function msn(q){if(!('mediaSession' in navigator))return;try{navigator.mediaSession.metadata=new MediaMetadata({title:q.n,artist:'ZIKRIFY'})}catch(e){}[['play',()=>play()],['pause',()=>v.pause()],['previoustrack',pv],['nexttrack',nx],['seekbackward',()=>skp(-10)],['seekforward',()=>skp(10)]].forEach(a=>{try{navigator.mediaSession.setActionHandler(a[0],a[1])}catch(e){}})}
+function ld(i,p){if(v.src)URL.revokeObjectURL(v.src);qi=i;const q=Q[i];v.src=URL.createObjectURL(q.f);$('#vt').textContent=q.n;$('#viz').style.display=q.k=='a'?'block':'none';v.style.visibility=q.k=='a'?'hidden':'visible';abm=0;$('#bAB').textContent='A–B';subT='';$$('#vd track').forEach(x=>x.remove());rl();msn(q);upd();if(p)play()}
+function ea(){if(ea_)return;ea_=true;try{const ac=new (window.AudioContext||window.webkitAudioContext)(),s=ac.createMediaElementSource(v);bs=ac.createBiquadFilter();bs.type='lowshelf';bs.frequency.value=200;bs.gain.value=eqv[0];tr=ac.createBiquadFilter();tr.type='highshelf';tr.frequency.value=3000;tr.gain.value=eqv[1];an=ac.createAnalyser();an.fftSize=64;s.connect(bs);bs.connect(tr);tr.connect(an);an.connect(ac.destination);v.ac=ac;viz()}catch(e){}}
+function viz(){const c=$('#viz'),x=c.getContext('2d'),d=new Uint8Array(an.frequencyBinCount);(function f(){requestAnimationFrame(f);if(v.paused||c.style.display!='block')return;an.getByteFrequencyData(d);x.fillStyle='#1A1236';x.fillRect(0,0,320,180);const w=320/d.length;for(let i=0;i<d.length;i++){const h=d[i]/255*150;x.fillStyle='#9B82F5';x.fillRect(i*w+2,170-h,w-4,h)}})()}
+function play(){ea();if(v.ac&&v.ac.state=='suspended')v.ac.resume();v.play().catch(()=>{})}
+function upd(){$('#mpl').innerHTML=ic(v.paused?'M8 5l11 7-11 7z':'M8 5v14M16 5v14');$('#mpl').setAttribute('aria-label',v.paused?'Play':'Pause')}
+function tu(){const d=v.duration||0;$('#seek').value=d?v.currentTime/d*1000:0;$('#m1').textContent=fm2(v.currentTime);$('#m2').textContent=fm2(d);if(abm==2&&v.currentTime>=B_)v.currentTime=A_;const s=Math.floor(v.currentTime);if(Q[qi]&&s!=tu.l){tu.l=s;try{localStorage.setItem(key(Q[qi]),v.currentTime)}catch(e){}}}
+function nx(){if(!Q.length)return;let n=shuf?Math.floor(Math.random()*Q.length):qi+1;if(n>=Q.length){if(rep==2)n=0;else return}ld(n,true)}
+function pv(){if(v.currentTime>3){v.currentTime=0;return}ld(Math.max(0,qi-1),true)}
+v.onplay=upd;v.onpause=upd;v.ontimeupdate=tu;v.onended=()=>{if(rep==1){v.currentTime=0;play()}else nx()};
+v.onloadedmetadata=()=>{let s=0;try{s=+localStorage.getItem(key(Q[qi]))||0}catch(e){}if(s>5&&s<v.duration-5){v.currentTime=s;hu('Resumed at '+fm(s))}v.playbackRate=SPD[spi];tu()};
+$('#mpl').onclick=()=>v.paused?play():v.pause();$('#mb').onclick=()=>skp(-10);$('#mf').onclick=()=>skp(10);$('#mn').onclick=nx;$('#mp').onclick=pv;
+$('#seek').oninput=e=>{if(v.duration)v.currentTime=e.target.value/1000*v.duration};
+$('#bShuf').onclick=e=>{shuf=!shuf;e.currentTarget.setAttribute('aria-pressed',shuf)};
+$('#bRep').onclick=e=>{rep=(rep+1)%3;e.currentTarget.textContent=RL[rep]};
+$('#bSpd').onclick=e=>{spi=(spi+1)%7;v.playbackRate=SPD[spi];e.currentTarget.textContent='Speed '+SPD[spi]+'x'};
+$('#bFit').onclick=e=>{fti=(fti+1)%3;v.style.objectFit=FIT[fti];e.currentTarget.textContent=FN[fti]};
+$('#bAB').onclick=e=>{const b=e.currentTarget;abm=(abm+1)%3;if(abm==1){A_=v.currentTime;b.textContent='A at '+fm2(A_)}else if(abm==2){B_=v.currentTime;if(B_<=A_+1){abm=0;b.textContent='A–B';toast('Pick point B after point A')}else b.textContent='Looping A–B'}else b.textContent='A–B'};
+$('#bCC').onclick=()=>{const t=v.textTracks[0];if(t)t.mode=t.mode=='showing'?'hidden':'showing';else toast('Add a subtitle file first')};
+function shift(t,d){if(!t.startsWith('WEBVTT'))t='WEBVTT\n\n'+t.replace(/(\d+:\d+:\d+),(\d+)/g,'$1.$2');return t.replace(/(\d+):(\d+):(\d+)\.(\d+)/g,(m,h,mi,s,ms)=>{const x=Math.max(0,+h*3600+ +mi*60+ +s+ +ms/1000+d);return String(Math.floor(x/3600)).padStart(2,'0')+':'+String(Math.floor(x%3600/60)).padStart(2,'0')+':'+(x%60).toFixed(3).padStart(6,'0')})}
+function ss(){$$('#vd track').forEach(x=>x.remove());if(!subT)return;const k=document.createElement('track');k.kind='subtitles';k.default=true;k.src=URL.createObjectURL(new Blob([shift(subT,sd)],{type:'text/vtt'}));v.append(k);k.track.mode='showing'}
+$('#sf').onchange=async e=>{const f=e.target.files[0];if(!f)return;subT=await f.text();sd=0;ss();toast('Subtitle added')};
+$('#bSm').onclick=()=>{if(!subT)return toast('Add a subtitle file first');sd-=.5;ss();toast('Subtitle delay '+sd.toFixed(1)+'s')};
+$('#bSp').onclick=()=>{if(!subT)return toast('Add a subtitle file first');sd+=.5;ss();toast('Subtitle delay '+sd.toFixed(1)+'s')};
+$('#bPip').onclick=()=>{if(document.pictureInPictureEnabled&&v.requestPictureInPicture){document.pictureInPictureElement?document.exitPictureInPicture():v.requestPictureInPicture().catch(()=>toast('Pop-out is not available for this file'))}else toast('Pop-out is not supported in this browser')};
+$('#bFs').onclick=()=>{const p=$('#vp');if(document.fullscreenElement)document.exitFullscreen();else if(p.requestFullscreen)p.requestFullscreen().then(()=>{try{screen.orientation.lock('landscape').catch(()=>{})}catch(e){}}).catch(()=>toast('Fullscreen is not available'));else toast('Fullscreen is not supported in this browser')};
+$('#lkb').onclick=e=>{lkd=!lkd;$('#vp').classList.toggle('lkd',lkd);e.currentTarget.setAttribute('aria-pressed',lkd);hu(lkd?'Controls locked':'Controls unlocked')};
+$('#bSlp').onclick=e=>{clearTimeout(slT);sli2=(sli2+1)%4;const m=[0,15,30,60][sli2];e.currentTarget.textContent=m?'Sleep: '+m+' min':'Sleep: off';if(m)slT=setTimeout(()=>{v.pause();sli2=0;$('#bSlp').textContent='Sleep: off';toast('Sleep timer finished. Playback stopped.')},m*60000)};
+$('#eb').oninput=e=>{eqv[0]=+e.target.value;if(bs)bs.gain.value=eqv[0]};$('#et').oninput=e=>{eqv[1]=+e.target.value;if(tr)tr.gain.value=eqv[1]};
+const sg=$('#sg');
+sg.onpointerdown=e=>{if(lkd||e.target.closest('#lkb'))return;g={x:e.clientX,y:e.clientY,t:v.currentTime,vo:v.volume,b:br,m:null,w:sg.getBoundingClientRect(),nt:null};try{sg.setPointerCapture(e.pointerId)}catch(x){}clearTimeout(sg.h);sg.h=setTimeout(()=>{if(g&&!g.m&&!v.paused){v.playbackRate=2;held=true;hu('2x speed')}},500)};
+sg.onpointermove=e=>{if(!g)return;const dx=e.clientX-g.x,dy=e.clientY-g.y;if(!g.m&&Math.max(Math.abs(dx),Math.abs(dy))>14){clearTimeout(sg.h);g.m=Math.abs(dx)>Math.abs(dy)?'s':(g.x-g.w.left<g.w.width/2?'b':'v')}if(g.m=='s'){g.nt=Math.max(0,Math.min(v.duration||0,g.t+dx/g.w.width*90));hu(fm2(g.nt))}else if(g.m=='v'){v.volume=Math.max(0,Math.min(1,g.vo-dy/180));hu('Volume '+Math.round(v.volume*100)+'%')}else if(g.m=='b'){br=Math.max(.3,Math.min(1.6,g.b-dy/180));v.style.filter='brightness('+br+')';hu('Brightness '+Math.round(br*100)+'%')}};
+sg.onpointerup=()=>{clearTimeout(sg.h);if(!g)return;const o=g;g=null;if(held){held=false;v.playbackRate=SPD[spi];return}if(o.m=='s'){if(o.nt!=null)v.currentTime=o.nt;return}if(o.m)return;const n=Date.now();if(n-lt<320){clearTimeout(tt);lt=0;const l=o.x-o.w.left<o.w.width/2;skp(l?-10:10);hu(l?'-10s':'+10s')}else{lt=n;tt=setTimeout(()=>v.paused?play():v.pause(),320)}};
+sg.onpointercancel=()=>{clearTimeout(sg.h);g=null;if(held){held=false;v.playbackRate=SPD[spi]}};
+upd();rl();
+/* Books and PDFs */
+const C=['All','15-Line Hifz Quran','Books','Other'],PK='zk_pdf';let P=[],cf=0,U={};
+try{P=JSON.parse(localStorage.getItem(PK)||'[]')}catch(e){}
+const sv=()=>{try{localStorage.setItem(PK,JSON.stringify(P))}catch(e){toast('Could not save the list')}};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const dbo=()=>new Promise((ok,no)=>{const r=indexedDB.open('zk',1);r.onupgradeneeded=()=>r.result.createObjectStore('f');r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error)});
+const idb=async(m,k,val)=>{const d=await dbo();return new Promise((ok,no)=>{const s=d.transaction('f',m=='get'?'readonly':'readwrite').objectStore('f'),r=m=='get'?s.get(k):m=='put'?s.put(val,k):s.delete(k);r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error)})};
+async function pr(){for(const p of P)if(p.file&&!U[p.id]){try{const b=await idb('get',p.id);if(b)U[p.id]=URL.createObjectURL(b)}catch(e){}}
+$('#pfl').innerHTML=C.map((c,i)=>'<button class="chip" aria-pressed="'+(i==cf)+'" data-c="'+i+'">'+c+'</button>').join('');
+const L=P.filter(p=>cf==0||p.cat==C[cf]);
+$('#plist').innerHTML=L.length?L.map(p=>{const h=p.file?U[p.id]:p.url;return '<div class="card"><b>'+esc(p.t)+'</b><div class="mut sm" style="margin:2px 0 0">'+esc(p.cat)+' · '+(p.file?'Saved on this phone (works offline)':'Google Drive link (needs internet)')+'</div><div class="rw">'+(h?'<a class="chip on" href="'+esc(h)+'" target="_blank" rel="noopener noreferrer">Open PDF</a>':'')+'<button class="chip" data-x="'+p.id+'">Delete</button></div></div>'}).join(''):'<p class="mut">No PDFs here yet. Tap “Add PDF” to add your 15-line Hifz Quran or any other book.</p>'}
+$('#pfl').onclick=e=>{const b=e.target.closest('[data-c]');if(b){cf=+b.dataset.c;pr()}};
+$('#plist').onclick=e=>{const b=e.target.closest('[data-x]');if(!b)return;if(!b.dataset.arm){b.dataset.arm=1;b.textContent='Tap again to delete';setTimeout(()=>{b.dataset.arm='';b.textContent='Delete'},3000);return}const id=b.dataset.x,p=P.find(x=>x.id==id);P=P.filter(x=>x.id!=id);sv();if(p&&p.file){idb('del',id).catch(()=>{});delete U[id]}pr()};
+$('#padd').onclick=()=>{const s=$('#sh');s.hidden=false;s.innerHTML='<div class="sheet"><div class="top"><h2 style="font-size:18px">Add PDF</h2><button class="chip" id="cl2">Close</button></div><div class="fm" style="margin-top:12px"><input type="text" id="pt1" placeholder="Title, e.g. Hifz Quran Part 1" aria-label="Title"><select id="pc1" aria-label="Category">'+C.slice(1).map(c=>'<option>'+c+'</option>').join('')+'</select><input type="url" id="pu" placeholder="Google Drive link (https://…)" aria-label="Google Drive link"><div class="mut sm" style="text-align:center;margin:0">or</div><label class="chip" for="pfi" id="pfn">Choose a PDF from your phone (works offline)</label><input type="file" id="pfi" accept="application/pdf,.pdf"><button class="chip on" id="psv" style="justify-content:center">Save</button><p class="mut sm" style="margin:0">In Google Drive, set sharing to “Anyone with the link” before you copy the link.</p></div></div>';
+$('#cl2').onclick=()=>s.hidden=true;s.onclick=e=>{if(e.target==s)s.hidden=true};
+$('#pfi').onchange=e=>{const f=e.target.files[0];if(f)$('#pfn').textContent=f.name};
+$('#psv').onclick=async()=>{const t=$('#pt1').value.trim(),f=$('#pfi').files[0],u=$('#pu').value.trim();if(!t)return toast('Enter a title');if(!f&&!/^https?:\/\//i.test(u))return toast('Paste a Drive link or choose a PDF');const p={id:Date.now().toString(36),t,cat:$('#pc1').value};if(f){try{await idb('put',p.id,f);p.file=true}catch(e){return toast('Could not store the file on this device')}}else p.url=u;P.push(p);sv();s.hidden=true;cf=0;pr();toast('PDF added')}};
+pr();
+/* Guide */
+const TS=[[0,'M4 14v-2a8 8 0 0116 0v2M4 14h3v6H4zM17 14h3v6h-3z','Listen to the Quran','Pick a reciter, choose Arabic, বাংলা or English, save a copy for offline listening and set a sleep timer.'],[1,'M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2zM4 19h15','Read with meaning','Read each ayah in Arabic with Bengali and English meaning. Tap a language button to hear that ayah, and open similar verses.'],[2,'M12 3a3 3 0 00-3 3v6a3 3 0 006 0V6a3 3 0 00-3-3zM6 11a6 6 0 0012 0M12 17v4','Hifz mode','Correct words turn green and mistakes turn red. Hide the next words to test your memory.'],[3,'M3 6h7l2 2h9v11H3z','Your music and videos','Play audio and video from your phone with swipe gestures, subtitles, speed, A–B repeat and more.'],[4,'M4 4h12l4 4v12H4zM15 4v5h5M8 13h8M8 17h8','Books and PDFs','Add your 15-line Hifz Quran and other books with a Google Drive link, or save the PDF on your phone to open it offline.']];
+const OV=[['Listen','6 reciters · Arabic, বাংলা, English · offline copy · sleep timer · speed'],['Read','Surah Al-Fatihah with meanings · tap to hear each ayah · similar verses'],['Hifz','Green for correct, red for mistakes · hide next words · tap a red word to hear it'],['Media','Music and video player · swipe gestures · subtitles · A–B repeat · pop-out · lock · bass and treble'],['Books','15-line Hifz Quran PDFs · Google Drive links · offline files · add as many PDFs as you like']];
+const T=$('#tour');
+function tclose(){T.hidden=true;T.className='';try{localStorage.setItem('zk_tour','1')}catch(e){}go(0)}
+function wel(){T.hidden=false;T.className='full';T.innerHTML='<div class="wl"><div class="tic" style="background:rgba(255,255,255,.2);color:#fff;margin:0 auto">'+ic(TS[1][1])+'</div><div style="text-align:center"><div class="brand" style="color:#fff;font-size:24px">ZIKRIFY</div><p style="margin:6px 0 0">Listen, read and memorize the Quran in one place.</p></div><button class="btn2 bp" data-a="tour">Take a quick tour</button><button class="btn2 bs" data-a="all">See everything inside</button><button class="btn2 bs" data-a="skip" style="background:none;box-shadow:none">Skip</button><p style="text-align:center;font-size:12px;margin:6px 0 0">Developed by Graphico Global · For MAHADUL FURQAN</p></div>'}
+function stp(i){const s=TS[i];T.hidden=false;T.className='';T.dataset.i=i;go(s[0]);T.innerHTML='<div class="tb"><div class="dots">'+TS.map((x,k)=>'<i class="'+(k==i?'on':'')+'"></i>').join('')+'</div><div class="tic">'+ic(s[1])+'</div><h2>'+s[2]+'</h2><p>'+s[3]+'</p><div class="row2"><button class="btn2 bg" data-a="skip">Skip</button><span class="sp"></span>'+(i?'<button class="btn2 bg" data-a="back">Back</button>':'')+'<button class="btn2 bq" data-a="next">'+(i==TS.length-1?'Start':'Next')+'</button></div></div>'}
+function ovw(){T.hidden=false;T.className='page';T.innerHTML='<div class="pg"><div class="ovh"><h2>What’s inside ZIKRIFY</h2></div><div class="ovb">'+OV.map((o,k)=>'<div class="card"><div class="row2"><span class="tic" style="width:40px;height:40px;border-radius:14px">'+ic(TS[k][1])+'</span><b>'+o[0]+'</b></div><p class="mut" style="margin:8px 0 0">'+o[1]+'</p></div>').join('')+'</div><div class="ovf"><button class="btn2 bg" data-a="tour">Take the tour</button><button class="btn2 bq" data-a="start" style="flex:1">Start ZIKRIFY</button></div></div>'}
+T.onclick=e=>{const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a,i=+T.dataset.i||0;if(a=='tour')stp(0);else if(a=='all')ovw();else if(a=='next')i>=TS.length-1?tclose():stp(i+1);else if(a=='back')stp(i-1);else tclose()};
+$('#hlp').onclick=wel;
+try{if(!localStorage.getItem('zk_tour'))wel()}catch(e){wel()}
+</script></body></html>

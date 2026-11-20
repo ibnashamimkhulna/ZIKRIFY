@@ -1,11 +1,38 @@
-<div align="center">
+# ZIKRIFY — Quran Audio, Read, Tajweed & Hifz PWA
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+**Developed by Graphico Global · For MAHADUL FURQAN**
 
-  <h1>Built with AI Studio</h2>
+ZIKRIFY is an installable offline-first Progressive Web App (PWA) for listening to the complete 30 Juz (114 Surahs) of the Holy Quran, reading in Mushaf / Ayah / Meaning modes with 4-language Tajweed, Makhraj & Sifat teaching tools, practicing Hifz memorization, playing local media, and reading Hifz Quran PDFs.
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+## Included Reciters (10 Qaris)
+1. Mishary Alafasy
+2. Abdul Basit
+3. As-Sudais
+4. Maher Al-Muaiqly
+5. Saad Al-Ghamdi
+6. Al-Minshawi
+7. Ahmad Al-Nufais
+8. Badr Al-Turki
+9. Abdul Badi Ghaylan (عبد البديع محمد غيلان)
+10. Abdul Aziz Shukri (عبد العزيز شكري)
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+## Quick Start (Local Development)
 
-</div>
+```bash
+npm install
+npm run dev
+```
+
+## Production Build
+
+```bash
+npm run build
+npm run preview
+```
+
+## Deploy on GitHub Pages
+
+This repository includes `.github/workflows/deploy.yml` for automatic deployment to GitHub Pages:
+1. Push this repository to GitHub.
+2. Open **Settings → Pages** and set **Source** to **GitHub Actions**.
+3. Every push to `main` builds with the repository's `VITE_BASE_PATH` and publishes the installable offline PWA automatically.
