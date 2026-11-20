@@ -22,10 +22,13 @@ export default defineConfig(() => {
           'pwa-192x192.png',
           'pwa-512x512.png',
           'pwa-maskable-512x512.png',
+          'zikrify-192x192.png',
+          'zikrify-512x512.png',
+          'zikrify-maskable-512x512.png',
           'assets/brand/*.webp',
         ],
         manifest: {
-          id: normalizedBase,
+          id: `${normalizedBase}zikrify-app`,
           name: 'ZIKRIFY — Quran Audio, Read & Hifz',
           short_name: 'ZIKRIFY',
           description:
@@ -37,6 +40,24 @@ export default defineConfig(() => {
           scope: normalizedBase,
           icons: [
             {
+              src: `${normalizedBase}zikrify-192x192.png`,
+              sizes: '192x192',
+              type: 'image/png',
+              purpose: 'any',
+            },
+            {
+              src: `${normalizedBase}zikrify-512x512.png`,
+              sizes: '512x512',
+              type: 'image/png',
+              purpose: 'any',
+            },
+            {
+              src: `${normalizedBase}zikrify-maskable-512x512.png`,
+              sizes: '512x512',
+              type: 'image/png',
+              purpose: 'maskable',
+            },
+            {
               src: `${normalizedBase}pwa-192x192.png`,
               sizes: '192x192',
               type: 'image/png',
@@ -47,12 +68,6 @@ export default defineConfig(() => {
               sizes: '512x512',
               type: 'image/png',
               purpose: 'any',
-            },
-            {
-              src: `${normalizedBase}pwa-maskable-512x512.png`,
-              sizes: '512x512',
-              type: 'image/png',
-              purpose: 'maskable',
             },
           ],
         },
